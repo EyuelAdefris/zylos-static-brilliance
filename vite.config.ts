@@ -7,12 +7,12 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), tsconfigPaths()],
   server: {
     host: true,
-    port: Number(process.env.PORT) || 8080,
-    strictPort: true,
+    port: Number(process.env.PORT) || 0,
+    strictPort: false,
   },
   preview: {
     host: true,
-    port: Number(process.env.PORT) || 8080,
-    strictPort: true,
+    port: Number(process.env.PORT) || 0,
+    strictPort: false,
   },
 });
