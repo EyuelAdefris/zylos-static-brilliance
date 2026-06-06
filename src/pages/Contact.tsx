@@ -1,25 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Reveal } from "@/components/site/Reveal";
 import { CheckCircle2, Mail, MapPin, Phone, Send } from "lucide-react";
-
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Zylos Tech" },
-      { name: "description", content: "Get in touch with Zylos Tech. We'll respond within one business day." },
-      { property: "og:title", content: "Contact — Zylos Tech" },
-      { property: "og:description", content: "Tell us about your project — we'd love to hear from you." },
-      { property: "og:url", content: "/contact" },
-    ],
-    links: [{ rel: "canonical", href: "/contact" }],
-  }),
-  component: ContactPage,
-});
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name"),
@@ -33,7 +19,19 @@ type FormData = z.infer<typeof schema>;
 
 const services = ["Web Development", "Enterprise System", "E-Commerce", "SaaS Platform", "UI/UX Design", "API Integration", "Other"];
 
-function ContactPage() {
+const input = "w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/40 transition";
+
+function Field({ label, error, children, className }: { label: string; error?: string; children: ReactNode; className?: string }) {
+  return (
+    <label className={`block ${className ?? ""}`}>
+      <span className="text-xs uppercase tracking-wide text-muted-foreground font-medium">{label}</span>
+      <div className="mt-1.5">{children}</div>
+      {error && <span className="mt-1 block text-xs text-rose-400">{error}</span>}
+    </label>
+  );
+}
+
+export default function Contact() {
   const [sent, setSent] = useState(false);
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -48,6 +46,12 @@ function ContactPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Contact — Zylos Tech</title>
+        <meta name="description" content="Get in touch with Zylos Tech. We'll respond within one business day." />
+        <link rel="canonical" href="/contact" />
+      </Helmet>
+
       <section className="section-padding">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>
@@ -157,17 +161,5 @@ function ContactPage() {
         </div>
       </section>
     </>
-  );
-}
-
-const input = "w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/40 transition";
-
-function Field({ label, error, children, className }: { label: string; error?: string; children: React.ReactNode; className?: string }) {
-  return (
-    <label className={`block ${className ?? ""}`}>
-      <span className="text-xs uppercase tracking-wide text-muted-foreground font-medium">{label}</span>
-      <div className="mt-1.5">{children}</div>
-      {error && <span className="mt-1 block text-xs text-rose-400">{error}</span>}
-    </label>
   );
 }

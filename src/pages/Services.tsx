@@ -1,66 +1,27 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
-import {
-  Globe, ShoppingBag, Building2, Cloud, Palette, Cable, ArrowRight, Check,
-} from "lucide-react";
-
-export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Services — Zylos Tech" },
-      { name: "description", content: "Web, e-commerce, enterprise systems, SaaS, UI/UX and API integration — full-stack engineering by Zylos Tech." },
-      { property: "og:title", content: "Services — Zylos Tech" },
-      { property: "og:description", content: "Full-stack engineering services from Zylos Tech." },
-      { property: "og:url", content: "/services" },
-    ],
-    links: [{ rel: "canonical", href: "/services" }],
-  }),
-  component: ServicesPage,
-});
+import { Globe, ShoppingBag, Building2, Cloud, Palette, Cable, ArrowRight, Check } from "lucide-react";
 
 const services = [
-  {
-    icon: Globe,
-    title: "Website Development",
-    desc: "Custom business websites engineered for speed, SEO and conversion.",
-    features: ["Custom business websites", "SEO-friendly structure", "Responsive design", "Performance optimized"],
-  },
-  {
-    icon: ShoppingBag,
-    title: "E-Commerce Development",
-    desc: "High-converting online stores with rich catalogs and checkout flows.",
-    features: ["Online stores", "Product catalogs", "Payment integration design", "Order management UI"],
-  },
-  {
-    icon: Building2,
-    title: "Enterprise Systems",
-    desc: "Operational platforms tailored to how your business actually runs.",
-    features: ["ERP systems", "School management", "Rental management", "Hotel & hospitality"],
-  },
-  {
-    icon: Cloud,
-    title: "SaaS Development",
-    desc: "Multi-tenant subscription products with polished dashboards.",
-    features: ["Cloud platform interfaces", "Subscription platforms", "Admin dashboards", "Analytics workflows"],
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    desc: "Research-driven design systems and interfaces that delight.",
-    features: ["Wireframes", "Prototypes", "Modern interfaces", "UX optimization"],
-  },
-  {
-    icon: Cable,
-    title: "API Integration",
-    desc: "Connect third-party services into clean, reliable experiences.",
-    features: ["REST & GraphQL", "Webhooks & events", "Auth providers", "Payment gateways"],
-  },
+  { icon: Globe, title: "Website Development", desc: "Custom business websites engineered for speed, SEO and conversion.", features: ["Custom business websites", "SEO-friendly structure", "Responsive design", "Performance optimized"] },
+  { icon: ShoppingBag, title: "E-Commerce Development", desc: "High-converting online stores with rich catalogs and checkout flows.", features: ["Online stores", "Product catalogs", "Payment integration design", "Order management UI"] },
+  { icon: Building2, title: "Enterprise Systems", desc: "Operational platforms tailored to how your business actually runs.", features: ["ERP systems", "School management", "Rental management", "Hotel & hospitality"] },
+  { icon: Cloud, title: "SaaS Development", desc: "Multi-tenant subscription products with polished dashboards.", features: ["Cloud platform interfaces", "Subscription platforms", "Admin dashboards", "Analytics workflows"] },
+  { icon: Palette, title: "UI/UX Design", desc: "Research-driven design systems and interfaces that delight.", features: ["Wireframes", "Prototypes", "Modern interfaces", "UX optimization"] },
+  { icon: Cable, title: "API Integration", desc: "Connect third-party services into clean, reliable experiences.", features: ["REST & GraphQL", "Webhooks & events", "Auth providers", "Payment gateways"] },
 ];
 
-function ServicesPage() {
+export default function Services() {
   return (
     <>
+      <Helmet>
+        <title>Services — Zylos Tech</title>
+        <meta name="description" content="Web, e-commerce, enterprise systems, SaaS, UI/UX and API integration — full-stack engineering by Zylos Tech." />
+        <link rel="canonical" href="/services" />
+      </Helmet>
+
       <section className="section-padding">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>
@@ -79,12 +40,7 @@ function ServicesPage() {
         <div className="mx-auto max-w-7xl px-6">
           <Stagger className="grid md:grid-cols-2 gap-6">
             {services.map((s) => (
-              <motion.div
-                key={s.title}
-                variants={itemVariants}
-                whileHover={{ y: -4 }}
-                className="group relative rounded-3xl p-8 glass overflow-hidden transition-shadow hover:shadow-[var(--shadow-glow)]"
-              >
+              <motion.div key={s.title} variants={itemVariants} whileHover={{ y: -4 }} className="group relative rounded-3xl p-8 glass overflow-hidden transition-shadow hover:shadow-[var(--shadow-glow)]">
                 <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="flex items-start gap-5">
                   <div className="grid place-items-center h-14 w-14 rounded-2xl bg-[image:var(--gradient-brand)] shadow-[var(--shadow-glow)] shrink-0">

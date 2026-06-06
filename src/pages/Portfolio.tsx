@@ -1,21 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Reveal } from "@/components/site/Reveal";
-
-export const Route = createFileRoute("/portfolio")({
-  head: () => ({
-    meta: [
-      { title: "Portfolio — Zylos Tech" },
-      { name: "description", content: "Selected work by Zylos Tech across ERP, e-commerce, hospitality, healthcare, education, and SaaS." },
-      { property: "og:title", content: "Portfolio — Zylos Tech" },
-      { property: "og:description", content: "A selection of products we've designed and shipped." },
-      { property: "og:url", content: "/portfolio" },
-    ],
-    links: [{ rel: "canonical", href: "/portfolio" }],
-  }),
-  component: PortfolioPage,
-});
 
 type Cat = "All" | "ERP" | "E-Commerce" | "Tourism" | "Hotel" | "Healthcare" | "Education" | "SaaS";
 const categories: Cat[] = ["All", "ERP", "E-Commerce", "Tourism", "Hotel", "Healthcare", "Education", "SaaS"];
@@ -37,15 +23,18 @@ const projects: Project[] = [
   { name: "BillFlow", category: "SaaS", desc: "Modern invoicing SaaS for service businesses with automations.", tech: ["React", "TypeScript"], tone: "from-teal-500 to-cyan-400" },
 ];
 
-function PortfolioPage() {
+export default function Portfolio() {
   const [active, setActive] = useState<Cat>("All");
-  const items = useMemo(
-    () => (active === "All" ? projects : projects.filter((p) => p.category === active)),
-    [active]
-  );
+  const items = useMemo(() => (active === "All" ? projects : projects.filter((p) => p.category === active)), [active]);
 
   return (
     <>
+      <Helmet>
+        <title>Portfolio — Zylos Tech</title>
+        <meta name="description" content="Selected work by Zylos Tech across ERP, e-commerce, hospitality, healthcare, education, and SaaS." />
+        <link rel="canonical" href="/portfolio" />
+      </Helmet>
+
       <section className="section-padding">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>
@@ -65,11 +54,7 @@ function PortfolioPage() {
           <LayoutGroup>
             <div className="flex flex-wrap justify-center gap-2 mb-10">
               {categories.map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setActive(c)}
-                  className="relative px-4 py-2 text-sm font-medium rounded-full transition-colors"
-                >
+                <button key={c} onClick={() => setActive(c)} className="relative px-4 py-2 text-sm font-medium rounded-full transition-colors">
                   {active === c && (
                     <motion.span layoutId="cat-pill" className="absolute inset-0 rounded-full bg-[image:var(--gradient-brand)]" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
                   )}
@@ -81,16 +66,7 @@ function PortfolioPage() {
             <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <AnimatePresence mode="popLayout">
                 {items.map((p) => (
-                  <motion.article
-                    layout
-                    key={p.name}
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.3 }}
-                    whileHover={{ y: -6 }}
-                    className="group rounded-2xl overflow-hidden glass"
-                  >
+                  <motion.article layout key={p.name} initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.3 }} whileHover={{ y: -6 }} className="group rounded-2xl overflow-hidden glass">
                     <div className={`relative aspect-[4/3] bg-gradient-to-br ${p.tone} overflow-hidden`}>
                       <div className="absolute inset-0 grid-bg opacity-30" />
                       <div className="absolute inset-0 grid place-items-center">

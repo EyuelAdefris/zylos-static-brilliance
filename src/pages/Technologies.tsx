@@ -1,21 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
 import { motion, useInView } from "framer-motion";
 import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
 import { useRef } from "react";
-
-export const Route = createFileRoute("/technologies")({
-  head: () => ({
-    meta: [
-      { title: "Technologies — Zylos Tech" },
-      { name: "description", content: "The frontend, backend, database, and cloud technologies Zylos Tech works with." },
-      { property: "og:title", content: "Technologies — Zylos Tech" },
-      { property: "og:description", content: "Our technology expertise across the stack." },
-      { property: "og:url", content: "/technologies" },
-    ],
-    links: [{ rel: "canonical", href: "/technologies" }],
-  }),
-  component: TechPage,
-});
 
 type Stack = { title: string; items: { name: string; level: number }[] };
 
@@ -50,9 +36,15 @@ function Bar({ value }: { value: number }) {
   );
 }
 
-function TechPage() {
+export default function Technologies() {
   return (
     <>
+      <Helmet>
+        <title>Technologies — Zylos Tech</title>
+        <meta name="description" content="The frontend, backend, database, and cloud technologies Zylos Tech works with." />
+        <link rel="canonical" href="/technologies" />
+      </Helmet>
+
       <section className="section-padding">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>

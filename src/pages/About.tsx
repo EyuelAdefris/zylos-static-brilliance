@@ -1,21 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
 import { Lightbulb, Trophy, ShieldCheck, Eye, Users, Target, Compass, Rocket } from "lucide-react";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Zylos Tech" },
-      { name: "description", content: "Meet Zylos Tech — a premium software engineering company crafting enterprise systems and SaaS platforms from Ethiopia for the world." },
-      { property: "og:title", content: "About — Zylos Tech" },
-      { property: "og:description", content: "Our story, mission, and the team building the future of software." },
-      { property: "og:url", content: "/about" },
-    ],
-    links: [{ rel: "canonical", href: "/about" }],
-  }),
-  component: AboutPage,
-});
 
 const values = [
   { icon: Lightbulb, title: "Innovation", desc: "We push boundaries and adopt the right tech for each problem." },
@@ -32,9 +18,15 @@ const team = [
   { name: "Hewan Girma", role: "Product Manager", tone: "from-amber-500 to-orange-400" },
 ];
 
-function AboutPage() {
+export default function About() {
   return (
     <>
+      <Helmet>
+        <title>About — Zylos Tech</title>
+        <meta name="description" content="Meet Zylos Tech — a premium software engineering company crafting enterprise systems and SaaS platforms from Ethiopia for the world." />
+        <link rel="canonical" href="/about" />
+      </Helmet>
+
       <section className="section-padding">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>
@@ -43,8 +35,7 @@ function AboutPage() {
               Crafting software that <span className="gradient-text">moves businesses forward</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
-              Founded in Addis Ababa with a global mindset, Zylos Tech partners with ambitious teams to design,
-              build, and scale digital products that last.
+              Founded in Addis Ababa with a global mindset, Zylos Tech partners with ambitious teams to design, build, and scale digital products that last.
             </p>
           </Reveal>
         </div>
