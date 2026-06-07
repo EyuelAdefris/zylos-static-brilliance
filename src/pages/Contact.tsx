@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState, type ReactNode } from "react";
 import { Reveal } from "@/components/site/Reveal";
-import { CheckCircle2, Mail, MapPin, Phone, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Mail, MapPin, Phone, Send } from "lucide-react";
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name"),
@@ -17,7 +17,7 @@ const schema = z.object({
 });
 type FormData = z.infer<typeof schema>;
 
-const services = ["Web Development", "Enterprise System", "E-Commerce", "SaaS Platform", "UI/UX Design", "API Integration", "Other"];
+const services = ["Web Development", "Enterprise System", "E-Commerce", "UI/UX Design", "Other"];
 
 const input = "w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/40 transition";
 
@@ -31,17 +31,47 @@ function Field({ label, error, children, className }: { label: string; error?: s
   );
 }
 
+
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (_data: FormData) => {
-    await new Promise((r) => setTimeout(r, 900));
-    setSent(true);
-    reset();
-    setTimeout(() => setSent(false), 4500);
+  const onSubmit = async (data: FormData) => {
+    setSendError(false);
+    try {
+      const res = await fetch("https://formspree.io/f/xnjypvkk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name:    data.name,
+          email:   data.email,
+          company: data.company ?? "—",
+          phone:   data.phone   ?? "—",
+          service: data.service,
+          message: data.message,
+        }),
+      });
+
+      const body = await res.json();
+      console.log("[Formspree] status:", res.status, "body:", body);
+
+      // Formspree returns { ok: true } on real success
+      if (!res.ok || body.ok === false) {
+        console.error("[Formspree] error:", body.error ?? body.errors);
+        throw new Error(body.error ?? "Submission failed");
+      }
+
+      setSent(true);
+      reset();
+      setTimeout(() => setSent(false), 5000);
+    } catch (err) {
+      console.error("[Formspree] catch:", err);
+      setSendError(true);
+      setTimeout(() => setSendError(false), 6000);
+    }
   };
 
   return (
@@ -88,7 +118,7 @@ export default function Contact() {
                   </span>
                   <div>
                     <div className="text-muted-foreground text-xs uppercase tracking-wide">Email</div>
-                    <div className="mt-0.5">hello@zylostech.com</div>
+                    <div className="mt-0.5">zylostech21@gmail.com</div>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -97,7 +127,8 @@ export default function Contact() {
                   </span>
                   <div>
                     <div className="text-muted-foreground text-xs uppercase tracking-wide">Phone</div>
-                    <div className="mt-0.5">+251 900 000 000</div>
+                    <div className="mt-0.5">+251 938117596</div>
+                    <div className="mt-0.5">+251 967934504</div>
                   </div>
                 </li>
               </ul>
@@ -149,10 +180,20 @@ export default function Contact() {
               <AnimatePresence>
                 {sent && (
                   <motion.div
+                    key="success"
                     initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
                     className="mt-5 flex items-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 px-4 py-3 text-sm text-emerald-300"
                   >
-                    <CheckCircle2 className="h-4 w-4" /> Thanks — your message was sent. We'll be in touch shortly.
+                    <CheckCircle2 className="h-4 w-4 shrink-0" /> Thanks — your message was sent. We'll be in touch shortly.
+                  </motion.div>
+                )}
+                {sendError && (
+                  <motion.div
+                    key="error"
+                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+                    className="mt-5 flex items-center gap-2 rounded-xl bg-rose-500/10 border border-rose-500/30 px-4 py-3 text-sm text-rose-300"
+                  >
+                    <AlertCircle className="h-4 w-4 shrink-0" /> Something went wrong. Email us directly at zylostech21@gmail.com.
                   </motion.div>
                 )}
               </AnimatePresence>
