@@ -46,10 +46,10 @@ export default function Contact() {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          name:    data.name,
-          email:   data.email,
+          name: data.name,
+          email: data.email,
           company: data.company ?? "—",
-          phone:   data.phone   ?? "—",
+          phone: data.phone ?? "—",
           service: data.service,
           message: data.message,
         }),
@@ -129,6 +129,7 @@ export default function Contact() {
                     <div className="text-muted-foreground text-xs uppercase tracking-wide">Phone</div>
                     <div className="mt-0.5">+251 938117596</div>
                     <div className="mt-0.5">+251 967934504</div>
+                    <div className="mt-0.5">+251 948822471</div>
                   </div>
                 </li>
               </ul>

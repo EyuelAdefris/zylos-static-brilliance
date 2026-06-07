@@ -12,10 +12,10 @@ const values = [
 ];
 
 const team = [
-  { name: "Eyob Alemu", role: "Founder & CEO", tone: "from-blue-500 to-cyan-400" },
-  { name: "Selam Bekele", role: "Head of Design", tone: "from-fuchsia-500 to-pink-400" },
-  { name: "Mikiyas Tadesse", role: "Lead Engineer", tone: "from-emerald-500 to-teal-400" },
-  { name: "Hewan Girma", role: "Product Manager", tone: "from-amber-500 to-orange-400" },
+  { name: "Ananiya Shimels", role: "Founder & CEO", tone: "from-blue-500 to-cyan-400" },
+  { name: "Eyuel Adefris", role: "Head of Design", tone: "from-fuchsia-500 to-pink-400" },
+  { name: "Biruk Wendimeneh", role: "Lead Engineer", tone: "from-emerald-500 to-teal-400" },
+  { name: "Abrham Ababu", role: "Product Manager", tone: "from-amber-500 to-orange-400" },
 ];
 
 export default function About() {

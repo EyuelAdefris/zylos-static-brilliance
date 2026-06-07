@@ -2,25 +2,47 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Reveal } from "@/components/site/Reveal";
+import { ExternalLink } from "lucide-react";
 
-type Cat = "All" | "ERP" | "E-Commerce" | "Tourism" | "Hotel" | "Healthcare" | "Education" | "SaaS";
-const categories: Cat[] = ["All", "ERP", "E-Commerce", "Tourism", "Hotel", "Healthcare", "Education", "SaaS"];
+/**
+ * Available categories for portfolio filtering.
+ */
+type Cat = "All" | "ERP" | "E-Commerce" | "Tourism" | "Hotel" | "Healthcare" | "Education";
 
-type Project = { name: string; category: Exclude<Cat, "All">; desc: string; tech: string[]; tone: string };
+/**
+ * Categories array used to render the filter pills.
+ */
+const categories: Cat[] = ["All", "ERP", "E-Commerce", "Tourism", "Hotel", "Healthcare", "Education"];
 
+/**
+ * Represents a single portfolio project item.
+ */
+type Project = { 
+  name: string; 
+  category: Exclude<Cat, "All">; 
+  desc: string; 
+  tech: string[]; 
+  tone: string; // Gradient color tones for card hover border and fallbacks
+  demoUrl: string; // Target URL for the project's interactive live demo
+  image: string; // High-quality screenshot/illustration URL
+};
+
+/**
+ * List of projects delivered by Zylos Tech.
+ */
 const projects: Project[] = [
-  { name: "Atlas ERP", category: "ERP", desc: "Operations platform for a manufacturing group with inventory, finance, and HR.", tech: ["React", "Node", "PostgreSQL"], tone: "from-blue-500 to-cyan-400" },
-  { name: "Vendora Commerce", category: "E-Commerce", desc: "Headless storefront with subscription billing and B2B portal.", tech: ["Next.js", "Stripe", "Tailwind"], tone: "from-amber-500 to-rose-400" },
-  { name: "Sojourn Hotels", category: "Hotel", desc: "Booking engine and revenue dashboard for a boutique hotel chain.", tech: ["React", "NestJS", "AWS"], tone: "from-violet-500 to-fuchsia-400" },
-  { name: "TripWeaver", category: "Tourism", desc: "Itinerary builder and marketplace connecting travelers and local guides.", tech: ["Next.js", "MongoDB"], tone: "from-emerald-500 to-teal-400" },
-  { name: "MediTrack", category: "Healthcare", desc: "Clinic workflow tool with patient records and appointment scheduling.", tech: ["React", "PostgreSQL"], tone: "from-rose-500 to-pink-400" },
-  { name: "ScholarHub", category: "Education", desc: "School management system covering attendance, grading, and parent portal.", tech: ["React", "NestJS"], tone: "from-indigo-500 to-blue-400" },
-  { name: "InsightOps", category: "SaaS", desc: "Real-time observability for distributed teams with custom dashboards.", tech: ["React", "TypeScript"], tone: "from-cyan-500 to-sky-400" },
-  { name: "Fleetly", category: "ERP", desc: "Fleet and dispatch management with route optimization.", tech: ["React", "Node"], tone: "from-orange-500 to-amber-400" },
-  { name: "RentLite", category: "ERP", desc: "Rental management platform for equipment and property operators.", tech: ["Next.js", "PostgreSQL"], tone: "from-lime-500 to-emerald-400" },
-  { name: "CarePlus", category: "Healthcare", desc: "Telehealth experience with video consults and prescription tracking.", tech: ["React", "WebRTC"], tone: "from-pink-500 to-rose-400" },
-  { name: "TutorNest", category: "Education", desc: "Online tutoring marketplace with scheduling and payments.", tech: ["Next.js", "Stripe"], tone: "from-purple-500 to-indigo-400" },
-  { name: "BillFlow", category: "SaaS", desc: "Modern invoicing SaaS for service businesses with automations.", tech: ["React", "TypeScript"], tone: "from-teal-500 to-cyan-400" },
+  { name: "Atlas ERP", category: "ERP", desc: "Operations platform for a manufacturing group with inventory, finance, and HR.", tech: ["React", "Node", "PostgreSQL"], tone: "from-blue-500 to-cyan-400", demoUrl: "https://atlas.zylostech.com", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" },
+  { name: "Vendora Commerce", category: "E-Commerce", desc: "Headless storefront with subscription billing and B2B portal.", tech: ["Next.js", "Stripe", "Tailwind"], tone: "from-amber-500 to-rose-400", demoUrl: "https://vendora.zylostech.com", image: "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80" },
+  { name: "Sojourn Hotels", category: "Hotel", desc: "Booking engine and revenue dashboard for a boutique hotel chain.", tech: ["React", "NestJS", "AWS"], tone: "from-violet-500 to-fuchsia-400", demoUrl: "https://sojourn.zylostech.com", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" },
+  { name: "TripWeaver", category: "Tourism", desc: "Itinerary builder and marketplace connecting travelers and local guides.", tech: ["Next.js", "MongoDB"], tone: "from-emerald-500 to-teal-400", demoUrl: "https://tripweaver.zylostech.com", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" },
+  { name: "MediTrack", category: "Healthcare", desc: "Clinic workflow tool with patient records and appointment scheduling.", tech: ["React", "PostgreSQL"], tone: "from-rose-500 to-pink-400", demoUrl: "https://meditrack.zylostech.com", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" },
+  { name: "ScholarHub", category: "Education", desc: "School management system covering attendance, grading, and parent portal.", tech: ["React", "NestJS"], tone: "from-indigo-500 to-blue-400", demoUrl: "https://scholarhub.zylostech.com", image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=600&q=80" },
+  { name: "InsightOps", category: "ERP", desc: "Real-time observability for distributed teams with custom dashboards.", tech: ["React", "TypeScript"], tone: "from-cyan-500 to-sky-400", demoUrl: "https://insightops.zylostech.com", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" },
+  { name: "Fleetly", category: "ERP", desc: "Fleet and dispatch management with route optimization.", tech: ["React", "Node"], tone: "from-orange-500 to-amber-400", demoUrl: "https://fleetly.zylostech.com", image: "https://images.unsplash.com/photo-1516576888945-d5204aec5044?auto=format&fit=crop&w=600&q=80" },
+  { name: "RentLite", category: "ERP", desc: "Rental management platform for equipment and property operators.", tech: ["Next.js", "PostgreSQL"], tone: "from-lime-500 to-emerald-400", demoUrl: "https://rentlite.zylostech.com", image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80" },
+  { name: "CarePlus", category: "Healthcare", desc: "Telehealth experience with video consults and prescription tracking.", tech: ["React", "WebRTC"], tone: "from-pink-500 to-rose-400", demoUrl: "https://careplus.zylostech.com", image: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=600&q=80" },
+  { name: "TutorNest", category: "Education", desc: "Online tutoring marketplace with scheduling and payments.", tech: ["Next.js", "Stripe"], tone: "from-purple-500 to-indigo-400", demoUrl: "https://tutornest.zylostech.com", image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" },
+  { name: "BillFlow", category: "E-Commerce", desc: "Modern invoicing SaaS for service businesses with automations.", tech: ["React", "TypeScript"], tone: "from-teal-500 to-cyan-400", demoUrl: "https://billflow.zylostech.com", image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" },
 ];
 
 export default function Portfolio() {
@@ -68,19 +90,26 @@ export default function Portfolio() {
                 {items.map((p) => (
                   <motion.article layout key={p.name} initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.3 }} whileHover={{ y: -6 }} className="group rounded-2xl overflow-hidden glass">
                     <div className={`relative aspect-[4/3] bg-gradient-to-br ${p.tone} overflow-hidden`}>
+                      <img src={p.image} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-black/20 transition-opacity duration-300 group-hover:opacity-40" />
                       <div className="absolute inset-0 grid-bg opacity-30" />
-                      <div className="absolute inset-0 grid place-items-center">
-                        <div className="rounded-xl glass px-4 py-2 text-sm font-semibold">{p.name}</div>
+                      <div className="absolute inset-0 grid place-items-center pointer-events-none">
+                        <div className="rounded-xl glass px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-md">{p.name}</div>
                       </div>
-                      <div className="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity p-5 flex flex-col justify-end">
+                      <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity p-5 flex flex-col justify-end text-left">
                         <div className="text-xs uppercase tracking-wide text-white/70">{p.category}</div>
-                        <div className="mt-1 text-base font-semibold">{p.name}</div>
-                        <p className="mt-1 text-xs text-white/80">{p.desc}</p>
-                      </div>
+                        <div className="mt-1 text-base font-semibold flex items-center gap-1.5 text-white">
+                          {p.name} <ExternalLink className="h-3.5 w-3.5" />
+                        </div>
+                        <p className="mt-1 text-[11px] text-white/80 line-clamp-2">{p.desc}</p>
+                      </a>
                     </div>
                     <div className="p-5">
                       <div className="flex items-center justify-between">
                         <div className="text-xs uppercase tracking-wide text-muted-foreground">{p.category}</div>
+                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1 shrink-0">
+                          Live Demo <ExternalLink className="h-3 w-3" />
+                        </a>
                       </div>
                       <div className="mt-2 font-semibold">{p.name}</div>
                       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{p.desc}</p>

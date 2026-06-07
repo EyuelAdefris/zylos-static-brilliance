@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
   ArrowRight, Code2, LayoutGrid, Cloud, Palette, Cable, Building2,
-  Sparkles, Rocket, ShieldCheck, LifeBuoy, Globe2, Zap, Star, Quote,
+  Sparkles, Rocket, ShieldCheck, LifeBuoy, Globe2, Zap, Star, Quote, ExternalLink,
 } from "lucide-react";
 import { HeroVisual } from "@/components/site/HeroVisual";
 import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
@@ -27,10 +27,14 @@ const whyUs = [
   { icon: Globe2, title: "Global Standards", desc: "International quality bar with a deep local engineering culture." },
 ];
 
+/**
+ * Featured projects list displayed on the homepage.
+ * Includes category label, backdrop color tone, live demo URL, and premium mockup image.
+ */
 const projects = [
-  { name: "Atlas ERP", category: "Enterprise", tone: "from-blue-500 to-cyan-400" },
-  { name: "Sojourn Hotels", category: "Hospitality", tone: "from-violet-500 to-fuchsia-400" },
-  { name: "Vendora Commerce", category: "E-Commerce", tone: "from-amber-500 to-rose-400" },
+  { name: "Atlas ERP", category: "Enterprise", tone: "from-blue-500 to-cyan-400", demoUrl: "https://atlas.zylostech.com", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" },
+  { name: "Sojourn Hotels", category: "Hospitality", tone: "from-violet-500 to-fuchsia-400", demoUrl: "https://sojourn.zylostech.com", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" },
+  { name: "Vendora Commerce", category: "E-Commerce", tone: "from-amber-500 to-rose-400", demoUrl: "https://vendora.zylostech.com", image: "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80" },
 ];
 
 const testimonials = [
@@ -77,7 +81,7 @@ export default function Home() {
                 <span className="ml-1">5.0 client rating</span>
               </div>
               <div>SOC 2 aware engineering</div>
-              <div className="hidden sm:block">Trusted across 8+ countries</div>
+              <div className="hidden sm:block">Trusted across company</div>
             </motion.div>
           </div>
           <div className="relative"><HeroVisual /></div>
@@ -87,9 +91,9 @@ export default function Home() {
       <section className="border-y border-border/60 bg-white/[0.02]">
         <div className="mx-auto max-w-7xl px-6 py-12 grid grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { to: 50, suffix: "+", label: "Projects Delivered" },
-            { to: 20, suffix: "+", label: "Happy Clients" },
-            { to: 5, suffix: "+", label: "Years Experience" },
+            { to: 20, suffix: "+", label: "Projects Delivered" },
+            { to: 10, suffix: "+", label: "Clients" },
+            { to: 3, suffix: "+", label: "Years Experience" },
             { to: 99, suffix: "%", label: "Client Satisfaction" },
           ].map((s) => (
             <Reveal key={s.label} className="text-center">
@@ -155,17 +159,24 @@ export default function Home() {
             {projects.map((p) => (
               <motion.div key={p.name} variants={itemVariants} whileHover={{ y: -6 }} className="group relative rounded-2xl overflow-hidden glass">
                 <div className={`aspect-[4/3] bg-gradient-to-br ${p.tone} relative overflow-hidden`}>
+                  <img src={p.image} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/20 transition-opacity duration-300 group-hover:opacity-40" />
                   <div className="absolute inset-0 grid-bg opacity-30" />
-                  <div className="absolute inset-0 grid place-items-center">
-                    <div className="rounded-xl glass px-4 py-2 text-sm font-semibold">{p.name}</div>
+                  <div className="absolute inset-0 grid place-items-center pointer-events-none">
+                    <div className="rounded-xl glass px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-md">{p.name}</div>
                   </div>
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity grid place-items-center">
-                    <span className="text-sm font-semibold inline-flex items-center gap-2">View case study <ArrowRight className="h-4 w-4" /></span>
-                  </div>
+                  <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity grid place-items-center text-white">
+                    <span className="text-sm font-semibold inline-flex items-center gap-2">Live Demo <ExternalLink className="h-4 w-4" /></span>
+                  </a>
                 </div>
-                <div className="p-5">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground">{p.category}</div>
-                  <div className="mt-1 font-semibold">{p.name} Platform</div>
+                <div className="p-5 flex items-center justify-between">
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground">{p.category}</div>
+                    <div className="mt-1 font-semibold">{p.name} Platform</div>
+                  </div>
+                  <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1 shrink-0">
+                    Live Demo <ExternalLink className="h-3 w-3" />
+                  </a>
                 </div>
               </motion.div>
             ))}
