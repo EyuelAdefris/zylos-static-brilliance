@@ -109,7 +109,7 @@ export default function Contact() {
                   </span>
                   <div>
                     <div className="text-muted-foreground text-xs uppercase tracking-wide">Office</div>
-                    <div className="mt-0.5">Bole, Addis Ababa, Ethiopia</div>
+                    <div className="mt-0.5">Addis Ababa, Ethiopia</div>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
