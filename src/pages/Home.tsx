@@ -35,6 +35,7 @@ const projects = [
   { name: "Atlas ERP", category: "Enterprise", tone: "from-blue-500 to-cyan-400", demoUrl: "https://atlas.zylostech.com", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" },
   { name: "Sojourn Hotels", category: "Hospitality", tone: "from-violet-500 to-fuchsia-400", demoUrl: "https://sojourn.zylostech.com", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" },
   { name: "Vendora Commerce", category: "E-Commerce", tone: "from-amber-500 to-rose-400", demoUrl: "https://vendora.zylostech.com", image: "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80" },
+  { name: "Digital Menu", category: "Hospitality", tone: "from-amber-500 to-orange-400", demoUrl: "https://digital-menu-zeta-indol.vercel.app/", image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=600&q=80" },
 ];
 
 const testimonials = [
@@ -155,7 +156,7 @@ export default function Home() {
             </div>
             <Link to="/portfolio" className="text-sm font-semibold gradient-text">View all projects →</Link>
           </Reveal>
-          <Stagger className="mt-12 grid md:grid-cols-3 gap-5">
+          <Stagger className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {projects.map((p) => (
               <motion.div key={p.name} variants={itemVariants} whileHover={{ y: -6 }} className="group relative rounded-2xl overflow-hidden glass">
                 <div className={`aspect-[4/3] bg-gradient-to-br ${p.tone} relative overflow-hidden`}>
