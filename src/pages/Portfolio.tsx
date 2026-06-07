@@ -17,11 +17,11 @@ const categories: Cat[] = ["All", "ERP", "E-Commerce", "Tourism", "Hotel", "Heal
 /**
  * Represents a single portfolio project item.
  */
-type Project = { 
-  name: string; 
-  category: Exclude<Cat, "All">; 
-  desc: string; 
-  tech: string[]; 
+type Project = {
+  name: string;
+  category: Exclude<Cat, "All">;
+  desc: string;
+  tech: string[];
   tone: string; // Gradient color tones for card hover border and fallbacks
   demoUrl: string; // Target URL for the project's interactive live demo
   image: string; // High-quality screenshot/illustration URL
@@ -31,18 +31,6 @@ type Project = {
  * List of projects delivered by Zylos Tech.
  */
 const projects: Project[] = [
-  { name: "Atlas ERP", category: "ERP", desc: "Operations platform for a manufacturing group with inventory, finance, and HR.", tech: ["React", "Node", "PostgreSQL"], tone: "from-blue-500 to-cyan-400", demoUrl: "https://atlas.zylostech.com", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" },
-  { name: "Vendora Commerce", category: "E-Commerce", desc: "Headless storefront with subscription billing and B2B portal.", tech: ["Next.js", "Stripe", "Tailwind"], tone: "from-amber-500 to-rose-400", demoUrl: "https://vendora.zylostech.com", image: "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80" },
-  { name: "Sojourn Hotels", category: "Hotel", desc: "Booking engine and revenue dashboard for a boutique hotel chain.", tech: ["React", "NestJS", "AWS"], tone: "from-violet-500 to-fuchsia-400", demoUrl: "https://sojourn.zylostech.com", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" },
-  { name: "TripWeaver", category: "Tourism", desc: "Itinerary builder and marketplace connecting travelers and local guides.", tech: ["Next.js", "MongoDB"], tone: "from-emerald-500 to-teal-400", demoUrl: "https://tripweaver.zylostech.com", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" },
-  { name: "MediTrack", category: "Healthcare", desc: "Clinic workflow tool with patient records and appointment scheduling.", tech: ["React", "PostgreSQL"], tone: "from-rose-500 to-pink-400", demoUrl: "https://meditrack.zylostech.com", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" },
-  { name: "ScholarHub", category: "Education", desc: "School management system covering attendance, grading, and parent portal.", tech: ["React", "NestJS"], tone: "from-indigo-500 to-blue-400", demoUrl: "https://scholarhub.zylostech.com", image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=600&q=80" },
-  { name: "InsightOps", category: "ERP", desc: "Real-time observability for distributed teams with custom dashboards.", tech: ["React", "TypeScript"], tone: "from-cyan-500 to-sky-400", demoUrl: "https://insightops.zylostech.com", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" },
-  { name: "Fleetly", category: "ERP", desc: "Fleet and dispatch management with route optimization.", tech: ["React", "Node"], tone: "from-orange-500 to-amber-400", demoUrl: "https://fleetly.zylostech.com", image: "https://images.unsplash.com/photo-1516576888945-d5204aec5044?auto=format&fit=crop&w=600&q=80" },
-  { name: "RentLite", category: "ERP", desc: "Rental management platform for equipment and property operators.", tech: ["Next.js", "PostgreSQL"], tone: "from-lime-500 to-emerald-400", demoUrl: "https://rentlite.zylostech.com", image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80" },
-  { name: "CarePlus", category: "Healthcare", desc: "Telehealth experience with video consults and prescription tracking.", tech: ["React", "WebRTC"], tone: "from-pink-500 to-rose-400", demoUrl: "https://careplus.zylostech.com", image: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=600&q=80" },
-  { name: "TutorNest", category: "Education", desc: "Online tutoring marketplace with scheduling and payments.", tech: ["Next.js", "Stripe"], tone: "from-purple-500 to-indigo-400", demoUrl: "https://tutornest.zylostech.com", image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" },
-  { name: "BillFlow", category: "E-Commerce", desc: "Modern invoicing SaaS for service businesses with automations.", tech: ["React", "TypeScript"], tone: "from-teal-500 to-cyan-400", demoUrl: "https://billflow.zylostech.com", image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" },
   { name: "AAHRAMS", category: "ERP", desc: "Digital rental agreement management system designed to modernize and automate property contracts.", tech: ["React", "Tailwind", "Node"], tone: "from-indigo-500 to-violet-400", demoUrl: "https://aahrams.onrender.com/", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" },
   { name: "YAB Chemicals", category: "E-Commerce", desc: "Digital catalog and B2B ordering storefront serving Ethiopian industries with high-quality chemical supplies.", tech: ["React", "Tailwind", "Vite"], tone: "from-emerald-500 to-teal-400", demoUrl: "https://www.yabchemicals.com/", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" },
   { name: "Digital Menu", category: "Hotel", desc: "Interactive digital menu platform for restaurants and cafés to showcase dishes, drinks, and daily specials.", tech: ["React", "Tailwind", "Vite"], tone: "from-amber-500 to-orange-400", demoUrl: "https://digital-menu-zeta-indol.vercel.app/", image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=600&q=80" },

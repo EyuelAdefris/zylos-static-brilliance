@@ -32,15 +32,14 @@ const whyUs = [
  * Includes category label, backdrop color tone, live demo URL, and premium mockup image.
  */
 const projects = [
-  { name: "Atlas ERP", category: "Enterprise", tone: "from-blue-500 to-cyan-400", demoUrl: "https://atlas.zylostech.com", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" },
-  { name: "Sojourn Hotels", category: "Hospitality", tone: "from-violet-500 to-fuchsia-400", demoUrl: "https://sojourn.zylostech.com", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" },
-  { name: "Vendora Commerce", category: "E-Commerce", tone: "from-amber-500 to-rose-400", demoUrl: "https://vendora.zylostech.com", image: "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80" },
-  { name: "Digital Menu", category: "Hospitality", tone: "from-amber-500 to-orange-400", demoUrl: "https://digital-menu-zeta-indol.vercel.app/", image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=600&q=80" },
+  { name: "AAHRAMS", category: "ERP", tone: "from-indigo-500 to-violet-400", demoUrl: "https://aahrams.onrender.com/", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" },
+  { name: "Digital Menu", category: "Hotel", tone: "from-amber-500 to-orange-400", demoUrl: "https://digital-menu-zeta-indol.vercel.app/", image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=600&q=80" },
+  { name: "Crafted By Her", category: "E-Commerce", desc: "Curated online marketplace showcasing unique handcrafted items and artisan goods made by women creators.", tech: ["React", "Node", "MongoDB"], tone: "from-pink-500 to-rose-400", demoUrl: "https://crafted-by-her.onrender.com/", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80" }
 ];
 
 const testimonials = [
-  { name: "Hanna T.", role: "CTO, FinAxis", quote: "Zylos delivered our SaaS platform two weeks early. Architecture, design, and DX are all outstanding." },
-  { name: "Daniel M.", role: "CEO, Sojourn", quote: "Their team feels like an in-house engineering org. Every release is polished and on time." },
+  { name: "Ababi Yirga.", role: "CEO, Yab Chemicals", quote: "Zylos Tech transformed our vision into a professional, modern website. Their expertise, responsiveness, and commitment to quality exceeded our expectations. We highly recommend their services." },
+  { name: "Adefris ayalew.", role: "CEO, Bilen Company", quote: "Their team feels like an in-house engineering org. Every release is polished and on time." },
   { name: "Liya K.", role: "Product Lead, Vendora", quote: "We've tripled conversions since the rebuild. The attention to detail is unmatched." },
 ];
 
