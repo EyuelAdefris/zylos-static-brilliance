@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Theme init: runs before CSS/JS to prevent flash of wrong theme -->
+    <script>
+      (function () {
+        var saved = localStorage.getItem('theme');
+        // Default to dark unless user explicitly chose light
+        if (saved !== 'light') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <meta name="theme-color" content="#0B1320" />
     <title>Zylos Tech — Premium Software Engineering Company</title>
     <meta name="description" content="Zylos Tech builds high-performance websites, enterprise systems, and scalable SaaS platforms for businesses worldwide." />
