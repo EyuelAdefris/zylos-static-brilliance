@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X, Zap, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -16,7 +16,27 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Initialise theme: default to dark (site is dark-first), respect saved preference
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === "undefined") return true;
+    const saved = localStorage.getItem("theme");
+    if (saved === "light") return false;
+    return true; // default: dark
+  });
   const { pathname } = useLocation();
+
+  // Apply or remove the "dark" class on the html element when darkMode changes
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      if (darkMode) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -69,6 +89,13 @@ export function Navbar() {
         </ul>
 
         <div className="hidden lg:flex items-center gap-3">
+          <button
+            aria-label="Toggle theme"
+            className="p-2 rounded-md text-foreground hover:bg-muted/20"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
           <Link
             to="/contact"
             className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold bg-[image:var(--gradient-brand)] text-primary-foreground shadow-[var(--shadow-glow)] hover:translate-y-[-1px] transition-transform"
@@ -76,7 +103,6 @@ export function Navbar() {
             Start a Project
           </Link>
         </div>
-
         <button
           aria-label="Toggle menu"
           className="lg:hidden p-2 rounded-md text-foreground"
